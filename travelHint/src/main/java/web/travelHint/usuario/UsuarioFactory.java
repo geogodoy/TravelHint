@@ -9,12 +9,9 @@ import web.travelHint.usuario.payload.UsuarioRequest;
 public class UsuarioFactory {
 
     @Autowired
-    UsuarioRepository usuarioRepository;
     TokenService tokenService;
 
-    public UsuarioFactory(UsuarioRepository usuarioRepository,
-                          TokenService tokenService) {
-        this.usuarioRepository = usuarioRepository;
+    public UsuarioFactory(TokenService tokenService) {
         this.tokenService = tokenService;
     }
 

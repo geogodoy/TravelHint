@@ -19,18 +19,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     UsuarioRepository usuarioRepository;
-    UsuarioFactory usuarioFactory;
     TokenService tokenService;
-    UsuarioValidationService usuarioValidationService;
 
     public UsuarioServiceImpl(UsuarioRepository usuarioRepository,
-                              UsuarioFactory usuarioFactory,
-                              TokenService tokenService,
-                              UsuarioValidationService usuarioValidationService){
+                              TokenService tokenService){
         this.usuarioRepository = usuarioRepository;
-        this.usuarioFactory = usuarioFactory;
         this.tokenService = tokenService;
-        this.usuarioValidationService = usuarioValidationService;
     }
 
     @Override
@@ -63,9 +57,22 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario createUsuario(UsuarioRequest usuarioRequest) {
-        usuarioValidationService.checkUsuarioEmail(usuarioRequest);
 
-        Usuario usuario = usuarioFactory.create(usuarioRequest);
+        if(usuarioRepository.findByEmail(usuarioRequest.getEmail()) != null){
+            throw new UsuarioEmailAlreadyExistExcpetion(usuarioRequest.getEmail());
+        }
+
+        Usuario usuario = new Usuario();
+
+        usuario.setNome(usuarioRequest.getNome());
+        usuario.setToken(tokenService.generateToken(usuario));
+        usuario.setSobrenome(usuarioRequest.getSobrenome());
+        usuario.setEmail(usuarioRequest.getEmail());
+        usuario.setSenha(usuarioRequest.getSenha());
+        usuario.setDataNascimento(usuarioRequest.getDataNascimento());
+        usuario.setBiografia(usuarioRequest.getBiografia());
+        usuario.setImagemUrl(usuarioRequest.getImagemUrl());
+        usuario.setGenero(usuarioRequest.getGenero());
 
         return usuarioRepository.save(usuario);
     }
@@ -77,7 +84,18 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario updateUsuario(Usuario usuario) {
-        return null;
+
+        usuario.setNome(usuario.getNome());
+        usuario.setSobrenome(usuario.getSobrenome());
+        usuario.setSenha(usuario.getSenha());
+        usuario.setDataNascimento(usuario.getDataNascimento());
+        usuario.setBiografia(usuario.getBiografia());
+        usuario.setImagemUrl(usuario.getImagemUrl());
+        usuario.setGenero(usuario.getGenero());
+
+        usuarioRepository.save(usuario);
+
+        return usuario;
     }
 
     @Override
