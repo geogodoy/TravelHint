@@ -15,7 +15,8 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario")
+    @SequenceGenerator(name = "usuario", sequenceName = "s_usuario", allocationSize = 1)
     private long id;
 
     private String token;
@@ -39,9 +40,5 @@ public class Usuario implements Serializable {
     private String imagemUrl;
 
     private String genero;
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
 }

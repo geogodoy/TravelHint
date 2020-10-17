@@ -3,19 +3,24 @@ package web.travelHint.usuario.service;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import web.travelHint.genero.Generos;
+import web.travelHint.proficiencia.Proficiencias;
 import web.travelHint.token.TokenService;
 import web.travelHint.usuario.Usuario;
-import web.travelHint.usuario.UsuarioFactory;
 import web.travelHint.usuario.UsuarioRepository;
 import web.travelHint.usuario.exception.*;
 import web.travelHint.usuario.payload.UsuarioLogin;
-import web.travelHint.usuario.payload.UsuarioRequest;
+import web.travelHint.usuario.payload.UsuarioCreateRequest;
 
 import java.util.Date;
 import java.util.List;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
+
+    private static final String generos[] = {String.valueOf(Generos.FEMININO),
+            String.valueOf(Generos.MASCULINO),
+            String.valueOf(Generos.OUTRO)};
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -56,25 +61,34 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 
     @Override
-    public Usuario createUsuario(UsuarioRequest usuarioRequest) {
+    public Usuario createUsuario(UsuarioCreateRequest usuarioCreateRequest) {
 
-        if(usuarioRepository.findByEmail(usuarioRequest.getEmail()) != null){
-            throw new UsuarioEmailAlreadyExistExcpetion(usuarioRequest.getEmail());
+        if(usuarioRepository.findByEmail(usuarioCreateRequest.getEmail()) != null){
+            throw new UsuarioEmailAlreadyExistExcpetion(usuarioCreateRequest.getEmail());
         }
 
         Usuario usuario = new Usuario();
 
-        usuario.setNome(usuarioRequest.getNome());
+        usuario.setNome(usuarioCreateRequest.getNome());
         usuario.setToken(tokenService.generateToken(usuario));
-        usuario.setSobrenome(usuarioRequest.getSobrenome());
-        usuario.setEmail(usuarioRequest.getEmail());
-        usuario.setSenha(usuarioRequest.getSenha());
-        usuario.setDataNascimento(usuarioRequest.getDataNascimento());
-        usuario.setBiografia(usuarioRequest.getBiografia());
-        usuario.setImagemUrl(usuarioRequest.getImagemUrl());
-        usuario.setGenero(usuarioRequest.getGenero());
+        usuario.setSobrenome(usuarioCreateRequest.getSobrenome());
+        usuario.setEmail(usuarioCreateRequest.getEmail());
+        usuario.setSenha(usuarioCreateRequest.getSenha());
+        usuario.setDataNascimento(usuarioCreateRequest.getDataNascimento());
+        usuario.setBiografia(usuarioCreateRequest.getBiografia());
+        usuario.setImagemUrl(usuarioCreateRequest.getImagemUrl());
+        usuario.setGenero(setGenero(usuarioCreateRequest.getGenero()));
 
         return usuarioRepository.save(usuario);
+    }
+
+    private String setGenero(String generoId) {
+        for(String genero : generos){
+            if (genero.equals(generoId)){
+                return genero;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -83,15 +97,15 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario updateUsuario(Usuario usuario) {
+    public Usuario updateUsuario(Usuario usuario, UsuarioCreateRequest usuarioCreateRequest) {
 
-        usuario.setNome(usuario.getNome());
-        usuario.setSobrenome(usuario.getSobrenome());
-        usuario.setSenha(usuario.getSenha());
-        usuario.setDataNascimento(usuario.getDataNascimento());
-        usuario.setBiografia(usuario.getBiografia());
-        usuario.setImagemUrl(usuario.getImagemUrl());
-        usuario.setGenero(usuario.getGenero());
+        usuario.setNome(usuarioCreateRequest.getNome());
+        usuario.setSobrenome(usuarioCreateRequest.getSobrenome());
+        usuario.setSenha(usuarioCreateRequest.getSenha());
+        usuario.setDataNascimento(usuarioCreateRequest.getDataNascimento());
+        usuario.setBiografia(usuarioCreateRequest.getBiografia());
+        usuario.setImagemUrl(usuarioCreateRequest.getImagemUrl());
+        usuario.setGenero(usuarioCreateRequest.getGenero());
 
         usuarioRepository.save(usuario);
 

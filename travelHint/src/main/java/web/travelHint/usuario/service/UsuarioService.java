@@ -2,7 +2,7 @@ package web.travelHint.usuario.service;
 
 import web.travelHint.usuario.Usuario;
 import web.travelHint.usuario.payload.UsuarioLogin;
-import web.travelHint.usuario.payload.UsuarioRequest;
+import web.travelHint.usuario.payload.UsuarioCreateRequest;
 
 import java.util.List;
 
@@ -14,11 +14,11 @@ public interface UsuarioService {
 
     Usuario findUsuarioToken(long id);
 
-    Usuario createUsuario(UsuarioRequest usuarioRequest);
+    Usuario createUsuario(UsuarioCreateRequest usuarioCreateRequest);
 
     void deleteUsuario(Usuario usuario);
 
-    Usuario updateUsuario(Usuario usuario);
+    Usuario updateUsuario(Usuario usuario, UsuarioCreateRequest usuarioCreateRequest);
 
     Usuario authenticate(UsuarioLogin usuarioLogin, String toen);
 

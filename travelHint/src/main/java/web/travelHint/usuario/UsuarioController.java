@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web.travelHint.usuario.dto.UsuarioAuthenticateDTO;
 import web.travelHint.usuario.payload.UsuarioLogin;
-import web.travelHint.usuario.payload.UsuarioRequest;
+import web.travelHint.usuario.payload.UsuarioCreateRequest;
 import web.travelHint.usuario.service.UsuarioService;
 
 import javax.validation.Valid;
@@ -39,11 +39,10 @@ public class UsuarioController {
     }
 
     @PostMapping("/usuario")
-    public ResponseEntity<UsuarioAuthenticateDTO> createUsuario(@Valid @RequestBody UsuarioRequest usuarioRequest){
-        Usuario usuario = usuarioService.createUsuario(usuarioRequest);
+    public ResponseEntity<UsuarioAuthenticateDTO> createUsuario(@Valid @RequestBody UsuarioCreateRequest usuarioCreateRequest){
+        Usuario usuario = usuarioService.createUsuario(usuarioCreateRequest);
 
         return new ResponseEntity<UsuarioAuthenticateDTO>(UsuarioAuthenticateDTO.toDTO(usuario, "Bearer"), HttpStatus.ACCEPTED);
-
     }
 
     @DeleteMapping("/usuario/{id}")
@@ -52,9 +51,12 @@ public class UsuarioController {
         usuarioService.deleteUsuario(usuario);
     }
 
-    @PutMapping("/usuario")
-    public Usuario updateUsuario(@RequestBody Usuario usuario){
-        return usuarioService.updateUsuario(usuario);
+    @PutMapping("/usuario/{id}")
+    public Usuario updateUsuario(@PathVariable(value = "id") long id,
+                                 @Valid @RequestBody UsuarioCreateRequest usuarioCreateRequest){
+        Usuario usuario = usuarioService.findUsuario(id);
+
+        return usuarioService.updateUsuario(usuario,usuarioCreateRequest);
     }
 
     @PostMapping("/login")
