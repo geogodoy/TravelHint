@@ -8,7 +8,7 @@ public enum Idiomas {
     FRANCES(4),
     PORTUGUES(5),
     COREANO(6),
-    MANDARIM(7),
+    CHINES(7),
     JAPONES(8),
     ALEMAO(9);
 

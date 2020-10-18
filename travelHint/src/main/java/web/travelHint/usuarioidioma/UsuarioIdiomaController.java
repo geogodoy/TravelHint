@@ -27,26 +27,26 @@ public class UsuarioIdiomaController {
     }
 
     @GetMapping("/usuario/idioma/{id}")
-    public UsuarioIdioma findUsuario(@PathVariable(value = "id") long id){
+    public UsuarioIdioma findUsuarioIdioma(@PathVariable(value = "id") long id){
         return usuarioIdiomaService.findUsuarioIdioma(id);
     }
 
     @PostMapping("/usuario/idioma")
-    public UsuarioIdioma createUsuario(@Valid @RequestBody UsuarioIdiomaCreateRequest usuarioIdiomaCreateRequest){
+    public UsuarioIdioma createUsuarioIdioma(@Valid @RequestBody UsuarioIdiomaCreateRequest usuarioIdiomaCreateRequest){
         return usuarioIdiomaService.createUsuarioIdioma(usuarioIdiomaCreateRequest);
 
     }
 
     @DeleteMapping("/usuario/idioma/{id}")
-    public void deleteUsuario(@PathVariable(value = "id") long id){
+    public void deleteUsuarioIdioma(@PathVariable(value = "id") long id){
         UsuarioIdioma usuarioIdioma = usuarioIdiomaService.findUsuarioIdioma(id);
         usuarioIdiomaService.deleteUsuarioIdioma(usuarioIdioma);
     }
 
-    @PutMapping("/usuario/idioma/{usuarioId}")
-    public UsuarioIdioma updateUsuario(@PathVariable(value = "usuarioId") long usuarioId,
-                                       @RequestBody UsuarioIdiomaUpdateRequest usuarioIdiomaUpdateRequest){
-        UsuarioIdioma usuarioIdioma = usuarioIdiomaService.findUsuarioIdiomaByUsuario(usuarioId);
+    @PutMapping("/usuario/idioma/{id}")
+    public UsuarioIdioma updateUsuarioIdioma(@PathVariable(value = "id") long id,
+                                             @RequestBody UsuarioIdiomaUpdateRequest usuarioIdiomaUpdateRequest){
+        UsuarioIdioma usuarioIdioma = usuarioIdiomaService.findUsuarioIdioma(id);
 
         return usuarioIdiomaService.updateUsuarioIdioma(usuarioIdioma, usuarioIdiomaUpdateRequest);
     }

@@ -26,7 +26,7 @@ public class UsuarioIdiomaServiceImpl implements UsuarioIdiomaService {
             String.valueOf(Idiomas.FRANCES),
             String.valueOf(Idiomas.PORTUGUES),
             String.valueOf(Idiomas.COREANO),
-            String.valueOf(Idiomas.MANDARIM),
+            String.valueOf(Idiomas.CHINES),
             String.valueOf(Idiomas.JAPONES),
             String.valueOf(Idiomas.ALEMAO)};
 

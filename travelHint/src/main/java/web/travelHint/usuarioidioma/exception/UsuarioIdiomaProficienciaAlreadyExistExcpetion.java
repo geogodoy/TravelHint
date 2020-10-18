@@ -9,7 +9,7 @@ public class UsuarioIdiomaProficienciaAlreadyExistExcpetion extends TravelHintEx
 
     public UsuarioIdiomaProficienciaAlreadyExistExcpetion(String idiomaId, String proficienciaId) {
 
-        super(String.format("O idioma '%s' e a proficiência '%s' já existem para esse usário", idiomaId, proficienciaId ));
+        super(String.format("O idioma '%s' para a proficiência '%s' já existe para esse usário", idiomaId, proficienciaId ));
     }
 
 }

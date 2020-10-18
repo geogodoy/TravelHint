@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class UsuarioIdiomaNotFoundExcpetion extends RuntimeException {
 
-    public UsuarioIdiomaNotFoundExcpetion(long usuarioId) {
-        super(String.format("O usuário idioma '%d' não foi encontrado", usuarioId));
+    public UsuarioIdiomaNotFoundExcpetion(long usuarioIdiomaId) {
+        super(String.format("O usuário idioma '%d' não foi encontrado", usuarioIdiomaId));
     }
 
 }
