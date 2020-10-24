@@ -19,7 +19,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>, JpaSpec
             + "where ui.idiomaId IN (SELECT ci.idiomaId from ChamadoIdioma ci join ci.chamado c "
             +                                       "where c.usuario.id = :usuario ) "
             + "and ut.topicoId  = :topicoId "
-            + "and ut.papelId = 'RESIDENTE' and r.cidade = :cidade "
+            + "and ut.papelId = 'RESIDENTE' and r.cidade = :cidade and  r.atual = 'true' "
             + "and u.id <> :usuario "
             + "group by u.id")
     long[] findUsuario(String topicoId, long usuario, String cidade);

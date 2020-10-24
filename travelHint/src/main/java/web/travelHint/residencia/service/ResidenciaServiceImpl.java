@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import web.travelHint.residencia.Residencia;
 import web.travelHint.residencia.ResidenciaRepository;
 import web.travelHint.residencia.exception.ResidenciaAlreadyExistExcpetion;
-import web.travelHint.residencia.exception.ResidenciaCodigoPostalAlreadyExistExcpetion;
 import web.travelHint.residencia.exception.ResidenciaNotDeleteExcpetion;
 import web.travelHint.residencia.exception.ResidenciaNotFoundExcpetion;
 import web.travelHint.residencia.payload.ResidenciaCreateRequest;
@@ -56,10 +55,10 @@ public class ResidenciaServiceImpl implements ResidenciaService{
         Usuario usuario = usuarioService.findUsuario(residenciaCreateRequest.getUsuarioId());
 
         verifyIsAtual(residencia, residenciaCreateRequest.getDataFinal(),residenciaCreateRequest.getUsuarioId());
-        verifyCodigoPostalAlreadyExist(residencia, residenciaCreateRequest.getCodigoPostal(),residenciaCreateRequest.getUsuarioId());
 
         residencia.setUsuario(usuario);
-
+        residencia.setCoordX(residenciaCreateRequest.getCoordX());
+        residencia.setCoordY(residenciaCreateRequest.getCoordY());
         residencia.setCidade(residenciaCreateRequest.getCidade());
         residencia.setPais(residenciaCreateRequest.getPais());
         residencia.setDataInicial(residenciaCreateRequest.getDataInicial());
@@ -67,17 +66,6 @@ public class ResidenciaServiceImpl implements ResidenciaService{
 
 
         return residenciaRepository.save(residencia);
-    }
-
-    private void verifyCodigoPostalAlreadyExist(Residencia residencia, String codigoPostal, long usuarioId) {
-        Residencia residenciaExiste = residenciaRepository
-                .findByUsuarioIdAndCodigoPostal(usuarioId, codigoPostal);
-
-        if(residenciaExiste != null){
-            throw new ResidenciaCodigoPostalAlreadyExistExcpetion(usuarioId, codigoPostal);
-        }else{
-            residencia.setCodigoPostal(codigoPostal);
-        }
     }
 
     private void verifyIsAtual(Residencia residencia,
@@ -115,12 +103,8 @@ public class ResidenciaServiceImpl implements ResidenciaService{
     public Residencia updateResidencia(Residencia residencia, ResidenciaUpdateRequest residenciaUpdateRequest) {
         verifyIsAtual(residencia, residenciaUpdateRequest.getDataFinal(), residenciaUpdateRequest.getUsuarioId());
 
-        residencia.setCodigoPostal(residenciaUpdateRequest.getCodigoPostal());
-        residencia.setCidade(residenciaUpdateRequest.getCidade());
-        residencia.setPais(residenciaUpdateRequest.getPais());
-        residencia.setDataInicial(residenciaUpdateRequest.getDataInicial());
         residencia.setDataFinal(residenciaUpdateRequest.getDataFinal());
-        residencia.setObservacao(residenciaUpdateRequest.getObservacao());
+        residencia.setAtual(false);
 
         return residenciaRepository.save(residencia);
     }

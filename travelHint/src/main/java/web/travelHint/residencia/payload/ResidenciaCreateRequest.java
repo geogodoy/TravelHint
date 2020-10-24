@@ -14,8 +14,9 @@ public class ResidenciaCreateRequest {
     @NotNull(message = "id do usuário deve ser informado")
     private long usuarioId;
 
-    @NotBlank(message = "código postal deve ser informado")
-    private String codigoPostal;
+    private double coordX;
+
+    private double coordY;
 
     @NotBlank(message = "cidade deve ser informada")
     private String cidade;

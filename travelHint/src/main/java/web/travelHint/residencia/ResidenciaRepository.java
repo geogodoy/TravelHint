@@ -12,6 +12,5 @@ public interface ResidenciaRepository extends JpaRepository<Residencia, Long>, J
     Residencia findByUsuarioIdAndAtual(long usuarioId, Boolean atual);
 
     Residencia findByIdAndAtual(long id, Boolean atual);
-
-    Residencia findByUsuarioIdAndCodigoPostal(long usuarioId, String codigoPostal);
+    
 }

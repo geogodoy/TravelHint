@@ -27,9 +27,9 @@ public class Chamado {
 
     private String topicoId;
 
-    private Integer latitude;
+    private double coordX;
 
-    private Integer longitude;
+    private double coordY;
 
     private Integer alcance;
 

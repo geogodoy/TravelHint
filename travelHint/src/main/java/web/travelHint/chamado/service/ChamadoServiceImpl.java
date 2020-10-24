@@ -69,8 +69,8 @@ public class ChamadoServiceImpl implements ChamadoService{
         chamado.setUsuario(usuario);
 
         chamado.setTopicoId(setTopico(chamadoCreateRequest.getTopicoId()));
-        chamado.setLatitude(chamadoCreateRequest.getLatitude());
-        chamado.setLongitude(chamadoCreateRequest.getLongitude());
+        chamado.setCoordX(chamadoCreateRequest.getCoordX());
+        chamado.setCoordY(chamadoCreateRequest.getCoordY());
         chamado.setAlcance(chamadoCreateRequest.getAlcance());
         chamado.setDistancia(chamadoCreateRequest.getDistancia());
         chamado.setMensagem(chamadoCreateRequest.getMensagem());

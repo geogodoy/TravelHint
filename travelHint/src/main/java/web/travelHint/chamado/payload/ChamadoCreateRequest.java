@@ -16,11 +16,9 @@ public class ChamadoCreateRequest {
     @NotBlank(message = "o tópico deve ser informado")
     private String  topicoId ;
 
-    @NotBlank(message = "latitude deve ser informada")
-    private Integer latitude;
+    private double coordX;
 
-    @NotBlank(message = "latitude deve ser informada")
-    private Integer longitude;
+    private double coordY;
 
     @NotBlank(message = "alcance deve ser informada")
     private Integer alcance;

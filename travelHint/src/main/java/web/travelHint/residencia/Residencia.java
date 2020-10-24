@@ -23,7 +23,9 @@ public class Residencia {
     @ManyToOne
     private Usuario usuario;
 
-    private String codigoPostal;
+    private double coordX;
+
+    private double coordY;
 
     private String cidade;
 
