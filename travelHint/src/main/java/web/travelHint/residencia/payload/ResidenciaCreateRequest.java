@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -13,9 +12,9 @@ import java.util.Date;
 public class ResidenciaCreateRequest {
 
     @NotNull(message = "id do usuário deve ser informado")
-    private Integer usuarioId;
+    private long usuarioId;
 
-    @NotEmpty(message = "código postal deve ser informado")
+    @NotBlank(message = "código postal deve ser informado")
     private String codigoPostal;
 
     @NotBlank(message = "cidade deve ser informada")

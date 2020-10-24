@@ -68,7 +68,6 @@ public class UsuarioTopicoServiceImpl implements UsuarioTopicoService {
         Usuario usuario = usuarioService.findUsuario(usuarioTopicoCreateRequest.getUsuarioId());
 
         verifyUsuarioTopicoExist(usuarioTopicoCreateRequest);
-        verifyTopicoExist(usuarioTopicoCreateRequest);
 
         usuarioTopico.setUsuario(usuario);
 
@@ -96,18 +95,11 @@ public class UsuarioTopicoServiceImpl implements UsuarioTopicoService {
         return null;
     }
 
-    private void verifyTopicoExist(UsuarioTopicoCreateRequest usuarioTopicoCreateRequest) {
-        UsuarioTopico usuarioTopico = usuarioTopicoRepository
-                .findByTopicoId(usuarioTopicoCreateRequest.getTopicoId());
-
-        if( usuarioTopico!= null){
-            throw new UsuarioTopicoAlreadyExistExcpetion(usuarioTopicoCreateRequest.getTopicoId());
-        }
-    }
-
     private void verifyUsuarioTopicoExist(UsuarioTopicoCreateRequest usuarioTopicoCreateRequest) {
         UsuarioTopico usuarioTopicoExiste = usuarioTopicoRepository
-                .findByTopicoIdAndPapelId(usuarioTopicoCreateRequest.getTopicoId(), usuarioTopicoCreateRequest.getPapelId());
+                .findByTopicoIdAndPapelIdAndUsuarioId(usuarioTopicoCreateRequest.getTopicoId(),
+                        usuarioTopicoCreateRequest.getPapelId(),
+                        usuarioTopicoCreateRequest.getUsuarioId());
 
         if( usuarioTopicoExiste!= null){
             throw new UsuarioTopicoPapelAlreadyExistExcpetion(usuarioTopicoCreateRequest.getTopicoId(), usuarioTopicoCreateRequest.getPapelId());

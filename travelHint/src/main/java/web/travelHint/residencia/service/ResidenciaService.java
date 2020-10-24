@@ -15,6 +15,8 @@ public interface ResidenciaService {
 
     Residencia findResidencia(long id);
 
+    Residencia findByUsuario(long usuarioId);
+
     Residencia createResidencia(ResidenciaCreateRequest residenciaCreateRequest);
 
     void deleteResidencia(Residencia residencia);

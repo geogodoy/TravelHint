@@ -90,7 +90,8 @@ public class UsuarioIdiomaServiceImpl implements UsuarioIdiomaService {
 
     private void verifyIdiomaExist(UsuarioIdiomaCreateRequest usuarioIdiomaCreateRequest) {
         UsuarioIdioma usuarioIdiomaExiste = usuarioIdiomaRepository
-                .findByIdiomaId(usuarioIdiomaCreateRequest.getIdiomaId());
+                .findByIdiomaIdAndUsuarioId(usuarioIdiomaCreateRequest.getIdiomaId(),
+                        usuarioIdiomaCreateRequest.getUsuarioId());
 
         if( usuarioIdiomaExiste!= null){
             throw new UsuarioIdiomaAlreadyExistExcpetion(usuarioIdiomaCreateRequest.getIdiomaId());
@@ -99,7 +100,9 @@ public class UsuarioIdiomaServiceImpl implements UsuarioIdiomaService {
 
     private void verifyUsuarioIdiomaExist(UsuarioIdiomaCreateRequest usuarioIdiomaCreateRequest) {
         UsuarioIdioma usuarioIdiomaExiste = usuarioIdiomaRepository
-                .findByIdiomaIdAndProficienciaId(usuarioIdiomaCreateRequest.getIdiomaId(), usuarioIdiomaCreateRequest.getProficienciaId());
+                .findByIdiomaIdAndProficienciaIdAndUsuarioId(usuarioIdiomaCreateRequest.getIdiomaId(),
+                        usuarioIdiomaCreateRequest.getProficienciaId(),
+                        usuarioIdiomaCreateRequest.getUsuarioId());
 
         if( usuarioIdiomaExiste!= null){
             throw new UsuarioIdiomaProficienciaAlreadyExistExcpetion(usuarioIdiomaCreateRequest.getIdiomaId(), usuarioIdiomaCreateRequest.getProficienciaId());

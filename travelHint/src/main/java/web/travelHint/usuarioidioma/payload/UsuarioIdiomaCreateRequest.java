@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
 public class UsuarioIdiomaCreateRequest {
 
     @NotNull(message = "id do usuário deve ser informado")
-    private Integer usuarioId;
+    private long usuarioId;
 
     @NotBlank(message = "idioma deve ser informado")
     private String idiomaId;

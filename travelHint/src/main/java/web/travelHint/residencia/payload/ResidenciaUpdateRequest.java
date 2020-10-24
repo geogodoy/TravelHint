@@ -12,7 +12,7 @@ import java.util.Date;
 public class ResidenciaUpdateRequest {
 
     @NotNull(message = "id do usuário deve ser informado")
-    private Integer usuarioId;
+    private long usuarioId;
 
     @NotBlank(message = "código postal deve ser informado")
     private String codigoPostal;

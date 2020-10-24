@@ -9,7 +9,7 @@ public interface UsuarioIdiomaRepository extends JpaRepository<UsuarioIdioma, Lo
 
     UsuarioIdioma findByUsuarioId(long usuarioId);
 
-    UsuarioIdioma findByIdiomaIdAndProficienciaId(String idiomaId, String proficienciaId);
+    UsuarioIdioma findByIdiomaIdAndProficienciaIdAndUsuarioId(String idiomaId, String proficienciaId, long usuarioId);
 
-    UsuarioIdioma findByIdiomaId(String idiomaId);
+    UsuarioIdioma findByIdiomaIdAndUsuarioId(String idiomaId, long usuarioId);
 }

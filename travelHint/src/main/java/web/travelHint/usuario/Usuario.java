@@ -3,8 +3,14 @@ package web.travelHint.usuario;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import web.travelHint.residencia.Residencia;
+import web.travelHint.usuarioidioma.UsuarioIdioma;
+import web.travelHint.usuariotopico.UsuarioTopico;
 
 @Getter
 @Setter
@@ -18,6 +24,18 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario")
     @SequenceGenerator(name = "usuario", sequenceName = "s_usuario", allocationSize = 1)
     private long id;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UsuarioIdioma> usuariosIdiomas;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY,  cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UsuarioTopico> usuariosTopicos;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY,  cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Residencia> residencias;
 
     private String token;
 

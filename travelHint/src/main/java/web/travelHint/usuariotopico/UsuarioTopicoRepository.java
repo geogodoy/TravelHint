@@ -8,7 +8,6 @@ public interface UsuarioTopicoRepository extends JpaRepository<UsuarioTopico, Lo
 
     UsuarioTopico findById(long id);
 
-    UsuarioTopico findByTopicoIdAndPapelId(String topicoId, String papelId);
+    UsuarioTopico findByTopicoIdAndPapelIdAndUsuarioId(String topicoId, String papelId, long usuarioId);
 
-    UsuarioTopico findByTopicoId(String topicoId);
 }

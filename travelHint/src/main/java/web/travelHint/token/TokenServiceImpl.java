@@ -11,7 +11,7 @@ import java.util.Date;
 @Service
 public class TokenServiceImpl implements TokenService{
 
-    private static final long expirationTime = 1800000;
+    private static final long expirationTime = 1800000000;
     private static final String key = "teste";
 
     @Override

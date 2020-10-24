@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 public class UsuarioTopicoCreateRequest {
 
     @NotNull(message = "id do usuário deve ser informado")
-    private Integer usuarioId;
+    private long usuarioId;
 
     @NotBlank(message = "tópico deve ser informado")
     private String topicoId;

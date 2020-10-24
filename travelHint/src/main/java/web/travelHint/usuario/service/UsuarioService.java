@@ -23,4 +23,6 @@ public interface UsuarioService {
     Usuario authenticate(UsuarioLogin usuarioLogin, String toen);
 
     Usuario findByEmail(String email);
+
+    long[] findMatchingViajante(String topicoId, long usuarioId, String cidade);
 }

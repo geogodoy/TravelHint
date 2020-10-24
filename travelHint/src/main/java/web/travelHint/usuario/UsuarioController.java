@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import web.travelHint.residencia.Residencia;
+import web.travelHint.residencia.service.ResidenciaService;
 import web.travelHint.usuario.dto.UsuarioAuthenticateDTO;
 import web.travelHint.usuario.payload.UsuarioLogin;
 import web.travelHint.usuario.payload.UsuarioCreateRequest;
@@ -17,9 +19,12 @@ import java.util.List;
 public class UsuarioController {
 
     @Autowired
+    ResidenciaService residenciaService;
     UsuarioService usuarioService;
 
-    public UsuarioController(UsuarioService usuarioService){
+    public UsuarioController(ResidenciaService residenciaService,
+                             UsuarioService usuarioService){
+        this.residenciaService = residenciaService;
         this.usuarioService = usuarioService;
     }
 
@@ -66,5 +71,12 @@ public class UsuarioController {
         return new ResponseEntity<UsuarioAuthenticateDTO>(UsuarioAuthenticateDTO.toDTO(usuario, "Bearer"), HttpStatus.ACCEPTED);
     }
 
+    @GetMapping("/usuario/{id}/{topicoId}")
+    public long[] findMatchingViajante(@PathVariable(value = "id") long id,
+                                       @PathVariable(value = "topicoId") String topicoId){
+        Residencia residencia = residenciaService.findByUsuario(id);
+
+        return usuarioService.findMatchingViajante(topicoId, id, residencia.getCidade());
+    }
 
 }

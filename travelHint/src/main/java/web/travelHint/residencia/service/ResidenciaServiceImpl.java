@@ -5,13 +5,13 @@ import org.springframework.stereotype.Service;
 import web.travelHint.residencia.Residencia;
 import web.travelHint.residencia.ResidenciaRepository;
 import web.travelHint.residencia.exception.ResidenciaAlreadyExistExcpetion;
+import web.travelHint.residencia.exception.ResidenciaCodigoPostalAlreadyExistExcpetion;
 import web.travelHint.residencia.exception.ResidenciaNotDeleteExcpetion;
 import web.travelHint.residencia.exception.ResidenciaNotFoundExcpetion;
 import web.travelHint.residencia.payload.ResidenciaCreateRequest;
 import web.travelHint.residencia.payload.ResidenciaUpdateRequest;
 import web.travelHint.usuario.Usuario;
 import web.travelHint.usuario.service.UsuarioService;
-import web.travelHint.usuarioidioma.exception.UsuarioIdiomaAlreadyExistExcpetion;
 
 import java.util.Date;
 import java.util.List;
@@ -46,15 +46,20 @@ public class ResidenciaServiceImpl implements ResidenciaService{
     }
 
     @Override
+    public Residencia findByUsuario(long usuarioId) {
+        return residenciaRepository.findByUsuarioId(usuarioId);
+    }
+
+    @Override
     public Residencia createResidencia(ResidenciaCreateRequest residenciaCreateRequest) {
         Residencia residencia = new Residencia();
         Usuario usuario = usuarioService.findUsuario(residenciaCreateRequest.getUsuarioId());
 
         verifyIsAtual(residencia, residenciaCreateRequest.getDataFinal(),residenciaCreateRequest.getUsuarioId());
+        verifyCodigoPostalAlreadyExist(residencia, residenciaCreateRequest.getCodigoPostal(),residenciaCreateRequest.getUsuarioId());
 
         residencia.setUsuario(usuario);
 
-        residencia.setCodigoPostal(residenciaCreateRequest.getCodigoPostal());
         residencia.setCidade(residenciaCreateRequest.getCidade());
         residencia.setPais(residenciaCreateRequest.getPais());
         residencia.setDataInicial(residenciaCreateRequest.getDataInicial());
@@ -62,6 +67,17 @@ public class ResidenciaServiceImpl implements ResidenciaService{
 
 
         return residenciaRepository.save(residencia);
+    }
+
+    private void verifyCodigoPostalAlreadyExist(Residencia residencia, String codigoPostal, long usuarioId) {
+        Residencia residenciaExiste = residenciaRepository
+                .findByUsuarioIdAndCodigoPostal(usuarioId, codigoPostal);
+
+        if(residenciaExiste != null){
+            throw new ResidenciaCodigoPostalAlreadyExistExcpetion(usuarioId, codigoPostal);
+        }else{
+            residencia.setCodigoPostal(codigoPostal);
+        }
     }
 
     private void verifyIsAtual(Residencia residencia,

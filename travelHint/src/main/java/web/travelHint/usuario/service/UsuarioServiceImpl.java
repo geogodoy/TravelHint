@@ -4,7 +4,6 @@ import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.travelHint.genero.Generos;
-import web.travelHint.proficiencia.Proficiencias;
 import web.travelHint.token.TokenService;
 import web.travelHint.usuario.Usuario;
 import web.travelHint.usuario.UsuarioRepository;
@@ -151,5 +150,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario findByEmail(String email) {
         return usuarioRepository.findByEmail(email);
+    }
+
+    @Override
+    public long[] findMatchingViajante(String topicoId, long usuarioId, String cidade) {
+        return usuarioRepository.findUsuario(topicoId, usuarioId, cidade);
     }
 }

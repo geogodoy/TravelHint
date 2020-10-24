@@ -5,9 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import web.travelHint.residencia.payload.ResidenciaCreateRequest;
 import web.travelHint.residencia.payload.ResidenciaUpdateRequest;
 import web.travelHint.residencia.service.ResidenciaService;
-import web.travelHint.usuarioidioma.UsuarioIdioma;
-import web.travelHint.usuarioidioma.payload.UsuarioIdiomaCreateRequest;
-import web.travelHint.usuarioidioma.payload.UsuarioIdiomaUpdateRequest;
 
 import javax.validation.Valid;
 import java.util.List;
