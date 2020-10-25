@@ -9,6 +9,7 @@ import web.travelHint.residencia.service.ResidenciaService;
 import web.travelHint.usuario.dto.UsuarioAuthenticateDTO;
 import web.travelHint.usuario.payload.UsuarioLogin;
 import web.travelHint.usuario.payload.UsuarioCreateRequest;
+import web.travelHint.usuario.payload.UsuarioUpdateRequest;
 import web.travelHint.usuario.service.UsuarioService;
 
 import javax.validation.Valid;
@@ -23,49 +24,64 @@ public class UsuarioController {
     UsuarioService usuarioService;
 
     public UsuarioController(ResidenciaService residenciaService,
-                             UsuarioService usuarioService){
+                             UsuarioService usuarioService) {
         this.residenciaService = residenciaService;
         this.usuarioService = usuarioService;
     }
 
     @GetMapping("/usuarios")
-    public List<Usuario> listUsuarios(){
-        return usuarioService.listUsuarios();
+    public List<Usuario> listUsuarios( @RequestHeader String Authorization) {
+        if (usuarioService.authenticate(Authorization)) {
+            return usuarioService.listUsuarios();
+        }
+        return null;
     }
 
     @GetMapping("/usuario/{id}")
-    public Usuario findUsuario(@PathVariable(value = "id") long id){
-        return usuarioService.findUsuario(id);
+    public Usuario findUsuario(@PathVariable(value = "id") long id,
+                               @RequestHeader String Authorization) {
+        if (usuarioService.authenticate(Authorization)) {
+            return usuarioService.findUsuario(id);
+        }
+        return null;
     }
 
     @GetMapping("/usuario/token/{id}")
-    public Usuario findUsuarioToken(@PathVariable(value = "id") long id){
+    public Usuario findUsuarioToken(@PathVariable(value = "id") long id) {
         return usuarioService.findUsuarioToken(id);
     }
 
     @PostMapping("/usuario")
-    public ResponseEntity<UsuarioAuthenticateDTO> createUsuario(@Valid @RequestBody UsuarioCreateRequest usuarioCreateRequest){
+    public ResponseEntity<UsuarioAuthenticateDTO> createUsuario(@Valid @RequestBody UsuarioCreateRequest usuarioCreateRequest) {
         Usuario usuario = usuarioService.createUsuario(usuarioCreateRequest);
 
         return new ResponseEntity<UsuarioAuthenticateDTO>(UsuarioAuthenticateDTO.toDTO(usuario, "Bearer"), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/usuario/{id}")
-    public void deleteUsuario(@PathVariable(value = "id") long id){
-        Usuario usuario = usuarioService.findUsuario(id);
-        usuarioService.deleteUsuario(usuario);
+    public void deleteUsuario(@PathVariable(value = "id") long id,
+                              @RequestHeader String Authorization) {
+        if (usuarioService.authenticate(Authorization)) {
+            Usuario usuario = usuarioService.findUsuario(id);
+            usuarioService.deleteUsuario(usuario);
+        }
     }
 
     @PutMapping("/usuario/{id}")
     public Usuario updateUsuario(@PathVariable(value = "id") long id,
-                                 @Valid @RequestBody UsuarioCreateRequest usuarioCreateRequest){
-        Usuario usuario = usuarioService.findUsuario(id);
+                                 @Valid @RequestBody UsuarioUpdateRequest usuarioUpdateRequest,
+                                 @RequestHeader String Authorization) {
 
-        return usuarioService.updateUsuario(usuario,usuarioCreateRequest);
+        if (usuarioService.authenticate(Authorization)) {
+            Usuario usuario = usuarioService.findUsuario(id);
+
+            return usuarioService.updateUsuario(usuario, usuarioUpdateRequest);
+        }
+        return null;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UsuarioAuthenticateDTO> loginUsuario(@RequestBody UsuarioLogin usuarioLogin, @RequestHeader String Authorization ){
+    public ResponseEntity<UsuarioAuthenticateDTO> loginUsuario(@RequestBody UsuarioLogin usuarioLogin, @RequestHeader String Authorization) {
         Usuario usuario = usuarioService.authenticate(usuarioLogin, Authorization);
 
         return new ResponseEntity<UsuarioAuthenticateDTO>(UsuarioAuthenticateDTO.toDTO(usuario, "Bearer"), HttpStatus.ACCEPTED);
@@ -73,10 +89,13 @@ public class UsuarioController {
 
     @GetMapping("/usuario/{id}/{topicoId}")
     public long[] findMatchingViajante(@PathVariable(value = "id") long id,
-                                       @PathVariable(value = "topicoId") String topicoId){
-        Residencia residencia = residenciaService.findByUsuario(id);
+                                       @PathVariable(value = "topicoId") String topicoId,
+                                       @RequestHeader String Authorization) {
+        if (usuarioService.authenticate(Authorization)) {
+            Residencia residencia = residenciaService.findByUsuario(id);
 
-        return usuarioService.findMatchingViajante(topicoId, id, residencia.getCidade());
+            return usuarioService.findMatchingViajante(topicoId, id, residencia.getCidade());
+        }
+        return null;
     }
-
 }

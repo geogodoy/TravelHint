@@ -3,6 +3,7 @@ package web.travelHint.usuario.service;
 import web.travelHint.usuario.Usuario;
 import web.travelHint.usuario.payload.UsuarioLogin;
 import web.travelHint.usuario.payload.UsuarioCreateRequest;
+import web.travelHint.usuario.payload.UsuarioUpdateRequest;
 
 import java.util.List;
 
@@ -18,9 +19,11 @@ public interface UsuarioService {
 
     void deleteUsuario(Usuario usuario);
 
-    Usuario updateUsuario(Usuario usuario, UsuarioCreateRequest usuarioCreateRequest);
+    Usuario updateUsuario(Usuario usuario, UsuarioUpdateRequest usuarioUpdateRequest);
 
-    Usuario authenticate(UsuarioLogin usuarioLogin, String toen);
+    Usuario authenticate(UsuarioLogin usuarioLogin, String token);
+
+    Boolean authenticate(String token);
 
     Usuario findByEmail(String email);
 

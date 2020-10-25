@@ -11,7 +11,7 @@ import java.util.Date;
 @Service
 public class TokenServiceImpl implements TokenService{
 
-    private static final long expirationTime = 1800000000;
+    //private static final long expirationTime = 1800000000;
     private static final String key = "teste";
 
     @Override
@@ -19,7 +19,6 @@ public class TokenServiceImpl implements TokenService{
         return Jwts.builder()
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setSubject(usuario.getNome())
-                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(SignatureAlgorithm.ES256.HS256, key)
                 .compact();
     }

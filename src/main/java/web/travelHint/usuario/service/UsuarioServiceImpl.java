@@ -10,6 +10,7 @@ import web.travelHint.usuario.UsuarioRepository;
 import web.travelHint.usuario.exception.*;
 import web.travelHint.usuario.payload.UsuarioLogin;
 import web.travelHint.usuario.payload.UsuarioCreateRequest;
+import web.travelHint.usuario.payload.UsuarioUpdateRequest;
 
 import java.util.Date;
 import java.util.List;
@@ -96,15 +97,15 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario updateUsuario(Usuario usuario, UsuarioCreateRequest usuarioCreateRequest) {
+    public Usuario updateUsuario(Usuario usuario, UsuarioUpdateRequest usuarioUpdateRequest) {
 
-        usuario.setNome(usuarioCreateRequest.getNome());
-        usuario.setSobrenome(usuarioCreateRequest.getSobrenome());
-        usuario.setSenha(usuarioCreateRequest.getSenha());
-        usuario.setDataNascimento(usuarioCreateRequest.getDataNascimento());
-        usuario.setBiografia(usuarioCreateRequest.getBiografia());
-        usuario.setImagemUrl(usuarioCreateRequest.getImagemUrl());
-        usuario.setGenero(usuarioCreateRequest.getGenero());
+        usuario.setNome(usuarioUpdateRequest.getNome());
+        usuario.setSobrenome(usuarioUpdateRequest.getSobrenome());
+        usuario.setSenha(usuarioUpdateRequest.getSenha());
+        usuario.setDataNascimento(usuarioUpdateRequest.getDataNascimento());
+        usuario.setBiografia(usuarioUpdateRequest.getBiografia());
+        usuario.setImagemUrl(usuarioUpdateRequest.getImagemUrl());
+        usuario.setGenero(usuarioUpdateRequest.getGenero());
 
         usuarioRepository.save(usuario);
 
@@ -126,6 +127,16 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
     }
 
+    @Override
+    public Boolean authenticate(String token) {
+
+        if(!token.isEmpty() && validate(token)) {
+            return true;
+        }else {
+            throw new InvalidLoginException();
+        }
+    }
+
     private boolean validate(String token) {
         try{
             String tokenTratado = token.replace("Bearer", "");
@@ -135,9 +146,9 @@ public class UsuarioServiceImpl implements UsuarioService {
             System.out.println(claims.getIssuedAt());
 
             //verifia se o token está expirado
-            if(claims.getExpiration().before(new Date(System.currentTimeMillis()))) throw new ExpiredTokenException();
-            System.out.println(claims.getExpiration());
-            return  true;
+//            if(claims.getExpiration().before(new Date(System.currentTimeMillis()))) throw new ExpiredTokenException();
+//            System.out.println(claims.getExpiration());
+           return  true;
         }catch (ExpiredTokenException et) {
             et.printStackTrace();
             throw et;
