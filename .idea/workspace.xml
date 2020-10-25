@@ -8,7 +8,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/travelHint" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1ikkQl6thJl1akk6sGmcHkrVH1J" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -19,6 +19,64 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RunManager" selected="Application.TravelHintApplication">
+    <configuration name="TravelHintApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="web.travelHint.TravelHintApplication" />
+      <module name="travelHint" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="web.travelHint.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <module name="travelHint" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="travelHint []" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list />
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.Unnamed" />
+      <item itemvalue="Maven.travelHint []" />
+      <item itemvalue="Application.TravelHintApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.TravelHintApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -34,9 +92,17 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="-1506" y="10" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603651942971">
+      <screen x="-1920" y="-165" width="1920" height="1040" />
+    </state>
+    <state x="-1506" y="10" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728/-1920.-165.1920.1040@-1920.-165.1920.1040" timestamp="1603651942971" />
     <state x="-1180" y="72" key="FileChooserDialogImpl" timestamp="1602459021061">
       <screen x="-1920" y="-165" width="1920" height="1040" />
     </state>
     <state x="-1180" y="72" key="FileChooserDialogImpl/0.0.1366.728/-1920.-165.1920.1040@-1920.-165.1920.1040" timestamp="1602459021061" />
+    <state x="-1480" y="-71" key="SettingsEditor" timestamp="1603651065410">
+      <screen x="-1920" y="-165" width="1920" height="1040" />
+    </state>
+    <state x="-1480" y="-71" key="SettingsEditor/0.0.1366.728/-1920.-165.1920.1040@-1920.-165.1920.1040" timestamp="1603651065410" />
   </component>
 </project>
