@@ -28,4 +28,6 @@ public class ChamadoCreateRequest {
 
     private String  mensagem ;
 
+    private String  idiomaId ;
+
 }

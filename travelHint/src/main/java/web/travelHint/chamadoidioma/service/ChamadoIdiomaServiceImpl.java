@@ -3,6 +3,7 @@ package web.travelHint.chamadoidioma.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.travelHint.chamado.Chamado;
+import web.travelHint.chamado.ChamadoRepository;
 import web.travelHint.chamado.service.ChamadoService;
 import web.travelHint.chamadoidioma.ChamadoIdioma;
 import web.travelHint.chamadoidioma.ChamadoIdiomaRepository;
@@ -31,12 +32,12 @@ public class ChamadoIdiomaServiceImpl implements ChamadoIdiomaService{
 
     @Autowired
     ChamadoIdiomaRepository chamadoIdiomaRepository;
-    ChamadoService chamadoService;
+    ChamadoRepository chamadoRepository;
 
     public ChamadoIdiomaServiceImpl(ChamadoIdiomaRepository chamadoIdiomaRepository,
-                                    ChamadoService chamadoService){
+                                    ChamadoRepository chamadoRepository){
         this.chamadoIdiomaRepository = chamadoIdiomaRepository;
-        this.chamadoService = chamadoService;
+        this.chamadoRepository = chamadoRepository;
     }
 
     @Override
@@ -58,7 +59,7 @@ public class ChamadoIdiomaServiceImpl implements ChamadoIdiomaService{
     @Override
     public ChamadoIdioma createChamadoIdioma(ChamadoIdiomaCreateRequest chamadoIdiomaCreateRequest) {
         ChamadoIdioma chamadoIdioma = new ChamadoIdioma();
-        Chamado chamado = chamadoService.findChamado(chamadoIdiomaCreateRequest.getChamadoId());
+        Chamado chamado = chamadoRepository.findById(chamadoIdiomaCreateRequest.getChamadoId());
 
         verifyIdiomaExist(chamadoIdiomaCreateRequest);
 

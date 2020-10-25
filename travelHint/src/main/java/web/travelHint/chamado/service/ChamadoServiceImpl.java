@@ -6,6 +6,9 @@ import web.travelHint.chamado.Chamado;
 import web.travelHint.chamado.ChamadoRepository;
 import web.travelHint.chamado.exception.ChamadoNotFoundExcpetion;
 import web.travelHint.chamado.payload.ChamadoCreateRequest;
+import web.travelHint.chamadoidioma.ChamadoIdioma;
+import web.travelHint.chamadoidioma.payload.ChamadoIdiomaCreateRequest;
+import web.travelHint.chamadoidioma.service.ChamadoIdiomaService;
 import web.travelHint.matching.payload.MatchingRequest;
 import web.travelHint.matching.service.MatchingService;
 import web.travelHint.residencia.Residencia;
@@ -31,15 +34,18 @@ public class ChamadoServiceImpl implements ChamadoService{
 
     @Autowired
     ChamadoRepository chamadoRepository;
+    ChamadoIdiomaService chamadoIdiomaService;
     MatchingService matchingService;
     ResidenciaService residenciaService;
     UsuarioService usuarioService;
 
     public ChamadoServiceImpl(ChamadoRepository chamadoRepository,
+                              ChamadoIdiomaService chamadoIdiomaService,
                               MatchingService matchingService,
                               ResidenciaService residenciaService,
                               UsuarioService usuarioService){
     this.chamadoRepository = chamadoRepository;
+    this.chamadoIdiomaService = chamadoIdiomaService;
     this.matchingService = matchingService;
     this.residenciaService = residenciaService;
     this.usuarioService = usuarioService;
@@ -79,9 +85,20 @@ public class ChamadoServiceImpl implements ChamadoService{
 
         chamado = chamadoRepository.save(chamado);
 
+        createChamadoIdioma(chamado, chamadoCreateRequest);
         createMatching(chamado);
 
         return chamado;
+    }
+
+    private void createChamadoIdioma(Chamado chamado, ChamadoCreateRequest chamadoCreateRequest) {
+        ChamadoIdiomaCreateRequest chamadoIdiomaCreateRequest = new ChamadoIdiomaCreateRequest();
+        chamadoIdiomaCreateRequest.setChamadoId(chamado.getId());
+        chamadoIdiomaCreateRequest.setIdiomaId(chamadoCreateRequest.getIdiomaId());
+
+        chamadoIdiomaService.createChamadoIdioma(chamadoIdiomaCreateRequest);
+
+
     }
 
     private void createMatching(Chamado chamado) {
