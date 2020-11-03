@@ -30,20 +30,13 @@ public class UsuarioController {
     }
 
     @GetMapping("/usuarios")
-    public List<Usuario> listUsuarios( @RequestHeader String Authorization) {
-        if (usuarioService.authenticate(Authorization)) {
+    public List<Usuario> listUsuarios() {
             return usuarioService.listUsuarios();
-        }
-        return null;
     }
 
     @GetMapping("/usuario/{id}")
-    public Usuario findUsuario(@PathVariable(value = "id") long id,
-                               @RequestHeader String Authorization) {
-        if (usuarioService.authenticate(Authorization)) {
+    public Usuario findUsuario(@PathVariable(value = "id") long id) {
             return usuarioService.findUsuario(id);
-        }
-        return null;
     }
 
     @GetMapping("/usuario/token/{id}")
@@ -59,25 +52,17 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/usuario/{id}")
-    public void deleteUsuario(@PathVariable(value = "id") long id,
-                              @RequestHeader String Authorization) {
-        if (usuarioService.authenticate(Authorization)) {
+    public void deleteUsuario(@PathVariable(value = "id") long id) {
             Usuario usuario = usuarioService.findUsuario(id);
             usuarioService.deleteUsuario(usuario);
-        }
     }
 
     @PutMapping("/usuario/{id}")
     public Usuario updateUsuario(@PathVariable(value = "id") long id,
-                                 @Valid @RequestBody UsuarioUpdateRequest usuarioUpdateRequest,
-                                 @RequestHeader String Authorization) {
-
-        if (usuarioService.authenticate(Authorization)) {
+                                 @Valid @RequestBody UsuarioUpdateRequest usuarioUpdateRequest) {
             Usuario usuario = usuarioService.findUsuario(id);
 
             return usuarioService.updateUsuario(usuario, usuarioUpdateRequest);
-        }
-        return null;
     }
 
     @PostMapping("/login")
@@ -89,13 +74,9 @@ public class UsuarioController {
 
     @GetMapping("/usuario/{id}/{topicoId}")
     public long[] findMatchingViajante(@PathVariable(value = "id") long id,
-                                       @PathVariable(value = "topicoId") String topicoId,
-                                       @RequestHeader String Authorization) {
-        if (usuarioService.authenticate(Authorization)) {
+                                       @PathVariable(value = "topicoId") String topicoId) {
             Residencia residencia = residenciaService.findByUsuario(id);
 
             return usuarioService.findMatchingViajante(topicoId, id, residencia.getCidade());
-        }
-        return null;
     }
 }
